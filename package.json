@@ -1,0 +1,25 @@
+{
+  "name": "knight-rentals",
+  "version": "1.0.0",
+  "description": "WhatsApp rental management agent and mobile admin dashboard",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "check": "node --check server.js && node --check firebase.js && node --check whatsapp.js && node --check routes/tenants.js && node --check routes/properties.js && node --check routes/units.js && node --check routes/payments.js && node --check routes/maintenance.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "axios": "^1.7.9",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "firebase-admin": "^13.0.2",
+    "helmet": "^8.0.0"
+  },
+  "overrides": {
+    "uuid": "^11.1.1"
+  }
+}

@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#111827">
+    <title>Knight Rentals Admin</title>
+    <link rel="stylesheet" href="/styles.css">
+    <script src="/admin.js" defer></script>
+  </head>
+  <body>
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">KNIGHT RENTALS</p>
+        <h1>Property command centre</h1>
+      </div>
+      <button id="api-key-button" class="ghost-button" type="button">API key</button>
+    </header>
+
+    <main>
+      <section class="stats" aria-label="Rental overview">
+        <article><span id="property-count">—</span><small>Properties</small></article>
+        <article><span id="vacant-count">—</span><small>Vacant units</small></article>
+        <article><span id="arrears-total">—</span><small>Total arrears</small></article>
+        <article><span id="open-tickets">—</span><small>Open issues</small></article>
+      </section>
+
+      <nav class="quick-nav" aria-label="Admin sections">
+        <a href="#property-form">Property</a>
+        <a href="#unit-form">Unit</a>
+        <a href="#tenant-form">Tenant</a>
+        <a href="#payment-form">Payment</a>
+        <a href="#reports">Reports</a>
+      </nav>
+
+      <section class="form-grid">
+        <form id="property-form" class="panel">
+          <div class="panel-heading"><p>01</p><h2>Add property</h2></div>
+          <label>Name<input name="name" required placeholder="Westlands Court"></label>
+          <label>Address<input name="address" required placeholder="Muthangari Drive, Nairobi"></label>
+          <label>Landlord name<input name="landlordName" placeholder="Jane Wanjiku"></label>
+          <label>Payment instructions<textarea name="paymentInstructions" rows="3" placeholder="Paybill 123456, account: your unit number"></textarea></label>
+          <button type="submit">Save property</button>
+        </form>
+
+        <form id="unit-form" class="panel">
+          <div class="panel-heading"><p>02</p><h2>Add unit</h2></div>
+          <label>Property<select name="propertyId" id="unit-property" required><option value="">Choose property</option></select></label>
+          <label>Unit name<input name="name" required placeholder="A-12"></label>
+          <label>Monthly rent (KES)<input name="monthlyRent" type="number" min="0" step="0.01" required placeholder="25000"></label>
+          <label>Description<input name="description" placeholder="Two bedroom, second floor"></label>
+          <button type="submit">Save unit</button>
+        </form>
+
+        <form id="tenant-form" class="panel">
+          <div class="panel-heading"><p>03</p><h2>Add tenant</h2></div>
+          <label>Full name<input name="name" required placeholder="Alex Kamau"></label>
+          <label>WhatsApp phone<input name="phone" inputmode="tel" required placeholder="254712345678"></label>
+          <label>Vacant unit<select name="unitId" id="tenant-unit" required><option value="">Choose vacant unit</option></select></label>
+          <label>Opening balance (KES)<input name="balance" type="number" min="0" step="0.01" value="0" required></label>
+          <label>Email<input name="email" type="email" placeholder="alex@example.com"></label>
+          <button type="submit">Save tenant</button>
+        </form>
+
+        <form id="payment-form" class="panel">
+          <div class="panel-heading"><p>04</p><h2>Record payment</h2></div>
+          <label>Tenant<select name="tenantId" id="payment-tenant" required><option value="">Choose tenant</option></select></label>
+          <label>Amount (KES)<input name="amount" type="number" min="0.01" step="0.01" required placeholder="25000"></label>
+          <label>Method<select name="method"><option>M-Pesa</option><option>Bank transfer</option><option>Cash</option><option>Other</option></select></label>
+          <label>Reference<input name="reference" placeholder="QH12ABCDEF"></label>
+          <button type="submit">Record & generate receipt</button>
+          <pre id="receipt-preview" class="receipt" hidden></pre>
+        </form>
+      </section>
+
+      <section id="reports" class="reports-grid">
+        <article class="panel report-panel">
+          <div class="panel-heading"><p>!</p><h2>Rent arrears</h2></div>
+          <div id="arrears-list" class="data-list"><p class="muted">Loading…</p></div>
+        </article>
+        <article class="panel report-panel">
+          <div class="panel-heading"><p>V</p><h2>Vacant units</h2></div>
+          <div id="vacant-list" class="data-list"><p class="muted">Loading…</p></div>
+        </article>
+        <article class="panel report-panel maintenance-panel">
+          <div class="panel-heading"><p>M</p><h2>Maintenance</h2></div>
+          <div id="maintenance-list" class="data-list"><p class="muted">Loading…</p></div>
+        </article>
+      </section>
+    </main>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  </body>
+</html>
